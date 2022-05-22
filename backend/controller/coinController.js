@@ -27,7 +27,7 @@ const getCoins = asyncHandler(async (req, res) => {
 // @access  Private
 const getCoin = asyncHandler(async (req, res) => {
   const coinId = req.params.id;
-  console.log(coinId);
+
   try {
     const response = await axios.get(baseURL + `?search=${coinId}`);
     res.json(response.data);
@@ -124,8 +124,6 @@ const sellCoin = asyncHandler(async (req, res) => {
   }
 
   const userCoin = await Coin.findOne({ userId: id, symbol: coin.symbol });
-  console.log(userCoin.amount);
-  console.log(amount);
   // Check user's amount for selling
   if (userCoin.amount < amount) {
     res.status(400);
