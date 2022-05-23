@@ -10,12 +10,7 @@ const baseURL = "http://api.coincap.io/v2/assets/";
 // @access  Private
 const getCoins = asyncHandler(async (req, res) => {
   try {
-    const response = await axios.get(baseURL, {
-      headers: {
-        "Accept-Encoding": "gzip, deflate, br",
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await axios.get(baseURL + "?limit=2000");
     res.json(response.data);
   } catch (error) {
     throw new Error(error);
