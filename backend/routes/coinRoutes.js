@@ -9,7 +9,7 @@ const {
   sellCoin,
 } = require("../controller/coinController");
 
-router.get("/", protect, getCoins);
+router.get("/", getCoins);
 router.post("/:id", protect, addCoin);
 router.get("/:id", protect, getCoin);
 router.put("/:id", protect, sellCoin);
