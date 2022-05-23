@@ -1,0 +1,32 @@
+.item-box {
+  display: block;
+
+  li.item {
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 2px 5px #ccc;
+
+    &:hover {
+      filter: brightness(0.75);
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+  li.redBg {
+    background-color: #e6394728;
+  }
+  li.greenBg {
+    background-color: #2a9d902d;
+  }
+}

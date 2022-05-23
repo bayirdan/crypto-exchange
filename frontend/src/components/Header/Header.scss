@@ -1,0 +1,105 @@
+.header-box {
+  width: 100%;
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 75px;
+  background-color: #264653;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 95%;
+    height: 100%;
+    margin: 0 auto;
+
+    header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .header__left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .logo {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          font-weight: 700;
+          color: #edf2f4;
+          font-size: 25px;
+          cursor: pointer;
+
+          svg {
+            color: #f4a261;
+            font-size: 32px;
+          }
+        }
+      }
+
+      .header__right {
+        .login-register {
+          display: block;
+
+          button {
+            margin: 0 5px;
+          }
+
+          .btn-login {
+            background-color: transparent;
+            color: #edf2f4;
+            font-weight: 700;
+          }
+
+          .btn-register {
+            padding: 10px 40px;
+            color: #2f3e46;
+            background-color: #edf2f4;
+            font-weight: 600;
+          }
+        }
+        .logout {
+          display: none;
+          align-items: center;
+          gap: 50px;
+
+          .my-wallet {
+            color: #edf2f4;
+            cursor: pointer;
+
+            a {
+              color: #edf2f4;
+              font-size: 16px;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              font-weight: 700;
+              transition: 0.2s;
+
+              svg {
+                font-size: 18px;
+              }
+
+              &:hover {
+                opacity: 0.8;
+              }
+            }
+          }
+
+          .btn-logout {
+            color: #2f3e46;
+            background-color: #edf2f4;
+            border: 2px solid #edf2f4;
+            font-weight: 700;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
