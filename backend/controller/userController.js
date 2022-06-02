@@ -56,7 +56,6 @@ const loginUser = asyncHandler(async (req, res) => {
 
   // Check for email
   const user = await User.findOne({ email });
-  console.log(user);
 
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
@@ -71,12 +70,39 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-// --description:   Get user data
+// --description:   Add balance
+// --route:         GET /api/users/balance
+// --access:        Private
+// ---------------------------------
+const setBalance = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(400);
+    throw new Error("User not found!");
+  }
+
+  const { balanceData } = req.body;
+  if (user.balance + Number(balanceData) < 0) {
+    res.status(400);
+    throw new Error("Insufficient balance!");
+  }
+  user.balance = user.balance + Number(balanceData);
+  await user.save();
+
+  res.status(200).json(user.balance);
+});
+
+// --description:   Get me
 // --route:         GET /api/users/me
 // --access:        Private
 // ---------------------------------
 const getMe = asyncHandler(async (req, res) => {
-  res.status(200).json(req.user);
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    res.status(400);
+    throw new Error("User not found!");
+  }
+  res.status(200).json(user);
 });
 
 // Generate JSON Web Token
@@ -90,4 +116,5 @@ module.exports = {
   registerUser,
   loginUser,
   getMe,
+  setBalance,
 };

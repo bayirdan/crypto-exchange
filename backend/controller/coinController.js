@@ -24,7 +24,37 @@ const getCoin = asyncHandler(async (req, res) => {
   const coinId = req.params.id;
 
   try {
-    const response = await axios.get(baseURL + `?search=${coinId}`);
+    const response = await axios.get(baseURL + coinId);
+    res.json(response.data);
+  } catch (error) {
+    res.status(400);
+    throw new Error("No coin");
+  }
+});
+
+// @desc    Get user's coins
+// @route   GET /api/coins/my-coins
+// @access  Private
+const getWallet = asyncHandler(async (req, res) => {
+  const { id } = req.user;
+  const user = await User.findById(id);
+  const myCoins = await Coin.find({ userId: id });
+  const wallet = {
+    balance: user.balance,
+    coins: myCoins,
+  };
+
+  res.json(wallet);
+});
+
+// @desc    Get search coin
+// @route   GET /api/coins/search
+// @access  Public
+const getSearch = asyncHandler(async (req, res) => {
+  const search = req.body.search;
+
+  try {
+    const response = await axios.get(baseURL + `?search=${search}`);
     res.json(response.data);
   } catch (error) {
     res.status(400);
@@ -54,16 +84,16 @@ const addCoin = asyncHandler(async (req, res) => {
   const totalPrice = coin.priceUsd * amount;
 
   // Check the minimum amount
-  if (totalPrice < 5) {
+  if (totalPrice < 10) {
     res.status(400);
-    throw new Error("The minimum amount is $5");
+    throw new Error("The minimum amount is $10");
   }
 
   const user = await User.findById(id);
   // Check user's balance for total price
   if (user.balance < totalPrice) {
     res.status(400);
-    throw new Error("Insufficient balance !");
+    throw new Error("Insufficient balance!");
   }
 
   // Change user balance
@@ -87,7 +117,6 @@ const addCoin = asyncHandler(async (req, res) => {
   // Update coin
   oldCoin.amount = oldCoin.amount + amount;
   await oldCoin.save();
-  console.log(oldCoin);
   return res.status(200).json(oldCoin);
 });
 
@@ -135,7 +164,6 @@ const sellCoin = asyncHandler(async (req, res) => {
 
   oldCoin.amount = oldCoin.amount - amount;
   await oldCoin.save();
-  console.log(oldCoin);
   return res.status(200).json(oldCoin);
 });
 
@@ -144,4 +172,6 @@ module.exports = {
   getCoin,
   addCoin,
   sellCoin,
+  getSearch,
+  getWallet,
 };
