@@ -1,40 +1,46 @@
 .search {
   background-color: #e9e9e9;
   padding: 5px;
-  height: 35px;
+  height: 40px;
   border-radius: 5px;
   box-shadow: 0 2px 5px #ccc;
   border: 1px solid #ddd;
-  max-width: 350px;
+  max-width: 500px;
   width: 100%;
 
   .input {
-    display: flex;
-    align-items: center;
     width: 100%;
     height: 100%;
 
-    input {
-      background-color: transparent;
-      border: none;
-      outline: none;
+    form {
+      display: flex;
+      align-items: center;
       width: 100%;
       height: 100%;
-      font-size: 16px;
 
-      &::placeholder {
-        color: #aaa;
-        transition: 0.2s;
-      }
+      input {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        width: 100%;
+        height: 100%;
+        font-size: 16px;
 
-      &:focus::placeholder {
-        font-size: 0;
+        &::placeholder {
+          color: #aaa;
+          transition: 0.2s;
+        }
+
+        &:focus::placeholder {
+          font-size: 0;
+        }
       }
     }
 
     svg {
       cursor: pointer;
-      font-size: 18px;
+      font-size: 20px;
+      appearance: button;
     }
   }
 }

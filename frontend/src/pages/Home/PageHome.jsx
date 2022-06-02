@@ -2,13 +2,14 @@ import "./PageHome.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 // Components
 import Header from "../../components/Header/Header";
 import Item from "../../components/Item/Item";
 import Search from "../../components/Search/Search";
 import Loading from "../../components/Loading/Loading";
 // React icons
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import { FaAngleRight, FaAngleLeft, FaSearch } from "react-icons/fa";
 // Slice
 import { getAllCoins, reset } from "../../features/coin/coinSlice";
 
@@ -20,13 +21,16 @@ const PageHome = () => {
   );
   const dispatch = useDispatch();
 
-  // Get all coins
+  // Set interval
   useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
     dispatch(getAllCoins(page));
-  }, [page]);
+    const interval = setInterval(() => {
+      dispatch(getAllCoins(page));
+    }, 30000);
+
+    dispatch(reset());
+    return () => clearInterval(interval);
+  }, [page, dispatch]);
 
   // Page increment
   const onIncrement = () => {
@@ -45,21 +49,15 @@ const PageHome = () => {
 
   return (
     <>
-      {isLoading && <Loading />}
+      {coins.length < 1 && <Loading />}
       <Header />
       <div className="home-box">
         <div className="home">
           <h1>Markets</h1>
+          <Link to="/search">
+            <FaSearch className="search-btn" />
+          </Link>
           <div className="markets">
-            <div className="tools">
-              <Search />
-            </div>
-            <ul className="coin-list">
-              {coins &&
-                coins.map((item, index) => {
-                  return <Item key={index} item={item} />;
-                })}
-            </ul>
             <div className="tools">
               <div className="pages">
                 <FaAngleLeft onClick={onDecrement} />
@@ -67,6 +65,17 @@ const PageHome = () => {
                 <FaAngleRight onClick={onIncrement} />
               </div>
             </div>
+            <div className="list-info">
+              <span>Name</span>
+              <span>Price / 24h</span>
+            </div>
+            <ul className="coin-list">
+              {coins &&
+                coins.length > 0 &&
+                coins.map((item, index) => {
+                  return <Item key={index} item={item} />;
+                })}
+            </ul>
           </div>
         </div>
       </div>

@@ -58,8 +58,13 @@ a {
 }
 
 .green {
-  color: #2a9d8f;
+  background-color: #2a9d8f;
 }
 .red {
-  color: #e63946;
+  background-color: #e63946;
+}
+.green:disabled,
+.red:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
