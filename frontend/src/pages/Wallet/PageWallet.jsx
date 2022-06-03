@@ -31,7 +31,7 @@ const PageWallet = () => {
       <div className="wallet-box">
         <h1>My Wallet</h1>
         <div className="wallet">
-          <h2>Bayirdan</h2>
+          <h2>{user && user.name}</h2>
           <div className="total-balance">
             Total Balance:
             <span>
