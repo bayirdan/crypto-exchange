@@ -11,6 +11,8 @@ Uygulamaya kayıt olurken kullanılan password `bcryptjs` ile şifrelenmektedir.
 
 Oluşturulan her user'de email unique olduğu için aynı email ile kayıt izni verilmez.
 
+[Demo](https://bayirdan-crypto-exchange.herokuapp.com/)
+
 ---
 
 ## Kullanım
